@@ -518,7 +518,7 @@ public class UKCService implements IUKCService {
         Vocabulary voc = vocabularyservice.readVocabulary(kb,language);
         List<String> lemmas = new ArrayList<String>();
         List<ISense> senseList = new ArrayList<ISense>();
-        if(/*lemmatizer.isLemmaExists(derivation, language)*/false)
+        if(lemmatizer.isLemmaExists(derivation, language))
         {
             lemmas.add(derivation);
         }
