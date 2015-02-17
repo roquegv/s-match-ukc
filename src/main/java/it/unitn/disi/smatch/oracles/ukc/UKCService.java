@@ -263,6 +263,11 @@ public class UKCService implements IUKCService {
         try {
 
                 Detector detector = DetectorFactory.create();
+                HashMap priorMap = new HashMap();
+                priorMap.put("en", new Double(0.1));
+                priorMap.put("it", new Double(0.1));
+                priorMap.put("es", new Double(0.1));
+                detector.setPriorMap(priorMap);
 
                 Iterator<INode> nodes = context.nodeIterator();
 
@@ -548,6 +553,10 @@ public class UKCService implements IUKCService {
         for(String lemma: lemmas)
         {
             Word word = vocabularyservice.readWord(voc,lemma);
+            if(word == null)
+            {
+                continue;
+            }
             List<Synset> synsets = word.getSynsets();
             senseList = new ArrayList<ISense>();
             for(int i=0;i<synsets.size();i++)
