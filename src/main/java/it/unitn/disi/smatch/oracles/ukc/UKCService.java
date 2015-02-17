@@ -575,19 +575,19 @@ public class UKCService implements IUKCService {
         List<String> result = new ArrayList<String>();
         KnowledgeBase kb = knowledgeBaseService.readKnowledgeBase("uk");
         Vocabulary voc = vocabularyservice.readVocabulary(kb,language);
-        if(/*lemmatizer.isLemmaExists(derivation, language)*/false)
+        if(lemmatizer.isLemmaExists(derivation, language))
         {
             result.add(derivation);
         }
         else
         {
-            //Map<String,Set<String>> alllemmas = lemmatizer.lemmatize(derivation, language);
+            Map<String,Set<String>> alllemmas = lemmatizer.lemmatize(derivation, language);
 
-            Map<String,Set<String>> alllemmas = new HashMap<>();
+/*            Map<String,Set<String>> alllemmas = new HashMap<>();
             Set setA = new HashSet();
             setA.add("course");
             setA.add("university");
-            alllemmas.put("cool", setA);
+            alllemmas.put("cool", setA);*/
 
             Collection s = alllemmas.values();
             for(String key : alllemmas.keySet())
