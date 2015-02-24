@@ -91,7 +91,7 @@ public class Main implements IMain{
             }
         }
         */
-        List<String> lemmas = new ArrayList<String>();
+/*        List<String> lemmas = new ArrayList<String>();
 
          Map<String,Set<String>> alllemmas = lemmatizer.lemmatize("corsi", "it");
          for(String key : alllemmas.keySet())
@@ -101,5 +101,6 @@ public class Main implements IMain{
          alllemmas.clear();
 
         System.out.print(lemmas);
+        */
     }
 }

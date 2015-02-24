@@ -10,6 +10,7 @@
     </content>
     <orderEntry type="jdk" jdkName="1.7" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="langdetect" level="project" />
     <orderEntry type="module" module-name="s-match-core" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:3.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-aop:3.2.8.RELEASE" level="project" />
@@ -26,9 +27,9 @@
     <orderEntry type="library" name="Maven: com.googlecode.concurrentlinkedhashmap:concurrentlinkedhashmap-lru:1.3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: junit:junit:4.11" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-nlp:2.5.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-kb:2.5.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-commons:2.5.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-nlp:2.5.0-RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-kb:2.5.0-RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-commons:2.5.0-RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:3.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:3.2.8.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-tx:3.2.8.RELEASE" level="project" />
@@ -48,32 +49,24 @@
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-entitymanager:4.3.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.hibernate:hibernate-ehcache:4.3.0.Final" level="project" />
     <orderEntry type="library" name="Maven: net.sf.ehcache:ehcache-core:2.4.3" level="project" />
-    <orderEntry type="library" name="Maven: org.hibernate:hibernate-spatial:4.3" level="project" />
-    <orderEntry type="library" name="Maven: postgresql:postgresql:9.1-901.jdbc4" level="project" />
-    <orderEntry type="library" name="Maven: org.postgis:postgis-jdbc:1.5.2" level="project" />
-    <orderEntry type="library" name="Maven: com.vividsolutions:jts:1.13" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjrt:1.6.10" level="project" />
     <orderEntry type="library" name="Maven: org.aspectj:aspectjweaver:1.6.10" level="project" />
     <orderEntry type="library" name="Maven: org.apache.commons:commons-io:1.3.2" level="project" />
     <orderEntry type="library" name="Maven: net.sf.flexjson:flexjson:3.1" level="project" />
     <orderEntry type="library" name="Maven: commons-collections:commons-collections:3.2" level="project" />
+    <orderEntry type="library" name="Maven: postgresql:postgresql:9.1-901.jdbc4" level="project" />
     <orderEntry type="library" name="Maven: c3p0:c3p0:0.9.1.2" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:scroll-lang-en:1.0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:scroll-core:3.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:scroll-data-common:3.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:scroll-model:3.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-nlp-data:2.5.0-RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:sweb-nlp-model:2.5.0-RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.apache.opennlp:opennlp-maxent:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.opennlp:opennlp-tools:1.5.3" level="project" />
     <orderEntry type="library" name="Maven: net.sf.jwordnet:jwnl:1.3.3" level="project" />
     <orderEntry type="library" name="Maven: org.apache.lucene:lucene-snowball:3.0.2" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.lucene:lucene-core:3.0.2" level="project" />
     <orderEntry type="library" name="Maven: com.cybozu.labs:langdetect:1.1-20120112" level="project" />
     <orderEntry type="library" name="Maven: net.arnx:jsonic:1.3.0" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:scroll-lang-en-data:1.0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:scroll-lang-it:1.0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: it.unitn.disi.sweb:scroll-lang-it-data:1.0.1-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="langdetect" level="project" />
   </component>
 </module>
 

@@ -70,13 +70,13 @@
         <dependency>
             <groupId>it.unitn.disi.sweb</groupId>
             <artifactId>sweb-nlp</artifactId>
-            <version>2.5.1-SNAPSHOT</version>
+            <version>2.5.0-RELEASE</version>
         </dependency>
 
         <dependency>
             <groupId>it.unitn.disi.sweb</groupId>
             <artifactId>sweb-kb</artifactId>
-            <version>2.5.1-SNAPSHOT</version>
+            <version>2.5.0-RELEASE</version>
         </dependency>
     </dependencies>
 

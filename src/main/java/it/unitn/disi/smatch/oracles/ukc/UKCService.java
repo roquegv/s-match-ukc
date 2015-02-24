@@ -20,7 +20,6 @@ import it.unitn.disi.sweb.core.kb.model.concepts.ConceptRelation;
 import it.unitn.disi.sweb.core.kb.model.concepts.ConceptRelationType;
 import it.unitn.disi.sweb.core.kb.model.vocabularies.*;
 import it.unitn.disi.sweb.core.nlp.INLPParameters;
-import it.unitn.disi.sweb.core.nlp.components.languagedetectors.ILanguageDetector;
 import it.unitn.disi.sweb.core.nlp.components.lemmatizers.ILemmatizer;
 import it.unitn.disi.sweb.core.nlp.model.NLText;
 import it.unitn.disi.sweb.core.nlp.parameters.NLPParameters;
@@ -161,6 +160,8 @@ public class UKCService implements IUKCService {
         if ((source instanceof UKCSense) && (target instanceof UKCSense)) {
          UKCSense sourceSyn = (UKCSense) source;
          UKCSense targetSyn = (UKCSense) target;
+         Synset s = vocabularyservice.readSynset(sourceSyn.getSynsetID());
+         Synset t = vocabularyservice.readSynset(targetSyn.getSynsetID());
          if(sourceSyn.getlanguage().equals(targetSyn.getlanguage()))
           {
               if (source.equals(target)) {
@@ -523,21 +524,14 @@ public class UKCService implements IUKCService {
         Vocabulary voc = vocabularyservice.readVocabulary(kb,language);
         List<String> lemmas = new ArrayList<String>();
         List<ISense> senseList = new ArrayList<ISense>();
-        if(lemmatizer.isLemmaExists(derivation, language))
+        //if(lemmatizer.isLemmaExists(derivation, language))
+        if(lemmatizer.isLemmaExists(derivation, voc))
         {
             lemmas.add(derivation);
         }
         else
         {
-            Map<String,Set<String>> alllemmas = lemmatizer.lemmatize(derivation, language);
-
-/*            Map<String,Set<String>> alllemmas = new HashMap<>();
-            Set setA = new HashSet();
-            setA.add("course");
-            setA.add("university");
-            alllemmas.put("cool", setA);*/
-
-
+/*            Map<String,Set<String>> alllemmas = lemmatizer.lemmatize(derivation, language);
             for(String key : alllemmas.keySet())
             {
                 for(String lemma : alllemmas.get(key))
@@ -547,7 +541,8 @@ public class UKCService implements IUKCService {
                     }
                 }
             }
-            alllemmas.clear();
+            alllemmas.clear();*/
+            lemmas.addAll(lemmatizer.lemmatize(derivation, voc));
         }
 
         for(String lemma: lemmas)
@@ -584,19 +579,20 @@ public class UKCService implements IUKCService {
         List<String> result = new ArrayList<String>();
         KnowledgeBase kb = knowledgeBaseService.readKnowledgeBase("uk");
         Vocabulary voc = vocabularyservice.readVocabulary(kb,language);
-        if(lemmatizer.isLemmaExists(derivation, language))
+        //if(lemmatizer.isLemmaExists(derivation, language))
+        if(lemmatizer.isLemmaExists(derivation, voc))
         {
             result.add(derivation);
         }
         else
         {
-            Map<String,Set<String>> alllemmas = lemmatizer.lemmatize(derivation, language);
+/*            Map<String,Set<String>> alllemmas = lemmatizer.lemmatize(derivation, language);
 
-/*            Map<String,Set<String>> alllemmas = new HashMap<>();
+*//*            Map<String,Set<String>> alllemmas = new HashMap<>();
             Set setA = new HashSet();
             setA.add("course");
             setA.add("university");
-            alllemmas.put("cool", setA);*/
+            alllemmas.put("cool", setA);*//*
 
             Collection s = alllemmas.values();
             for(String key : alllemmas.keySet())
@@ -608,7 +604,8 @@ public class UKCService implements IUKCService {
                     }
                 }
             }
-            alllemmas.clear();
+            alllemmas.clear();*/
+            result.addAll(lemmatizer.lemmatize(derivation, voc));
         }
         if (0 == result.size()) {
             result.add(derivation);
