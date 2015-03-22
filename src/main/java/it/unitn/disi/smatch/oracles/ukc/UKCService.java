@@ -40,7 +40,7 @@ import java.util.Set;
 /**
  * Created by Ahmed on 6/25/14.
  */
-@Transactional
+//@Transactional
 @Component
 public class UKCService implements IUKCService {
 
@@ -93,7 +93,7 @@ public class UKCService implements IUKCService {
         KnowledgeBase kb = knowledgeBaseService.readKnowledgeBase("uk");
         Vocabulary voc = vocabularyservice.readVocabulary(kb,language);
         Synset synset = vocabularyservice.readSynset(Long.valueOf(id).longValue());
-        return new UKCSense(synset.getId(),synset.getConcept().getId(),language,this);
+        return new UKCSense(synset.getConcept().getId(), synset.getId(), language, this);
     }
 
     @Override
@@ -367,22 +367,18 @@ public class UKCService implements IUKCService {
                 try {
                     // find all more general relationships from UKC
                     //RelationshipList list = RelationshipFinder.findRelationships(sourceSyn.getSynset(), targetSyn.getSynset(), PointerType.HYPERNYM);
-                    if(!(conceptservice.isPathExists(conceptservice.readConcept(sourceSyn.getConceptID()),
-                            conceptservice.readConcept(targetSyn.getConceptID()))))
-                    {
+//                    if(!(conceptservice.isPathExists(conceptservice.readConcept(sourceSyn.getConceptID()),
+//                            conceptservice.readConcept(targetSyn.getConceptID()))))
+                    Concept sourceConcept = conceptservice.readConcept(sourceSyn.getConceptID());
+                    Concept targetConcept = conceptservice.readConcept(targetSyn.getConceptID());
+//                    if(!(conceptservice.isPathExists(sourceConcept, targetConcept)))
+                    List<Concept> ancestorsOfTarget = conceptservice.readAncestors(targetConcept);
+                    if (ancestorsOfTarget.contains(sourceConcept)) {
+                        return true;
+                    } else {
                         //PointerTargetTree ptt = PointerUtils.getInheritedMemberHolonyms(targetSyn.getSynset());
                         //PointerTargetNodeList ptnl = PointerUtils.getMemberHolonyms(targetSyn.getSynset());
-                        List<Concept> targetAncestors = conceptservice.readAncestors(conceptservice.readConcept(targetSyn.getConceptID()));
-
-                        traverseTree(targetAncestors,sourceSyn);
-
-
-
-
-
-
-
-
+                        traverseTree(ancestorsOfTarget, sourceSyn);
                     /*    if (!traverseTree(targetAncestors, sourceSyn, relationType.MemberOf)) {
                             //ptt = PointerUtils.getInheritedPartHolonyms(targetSyn.getSynset());
                             //ptnl = PointerUtils.getPartHolonyms(targetSyn.getSynset());
@@ -398,9 +394,6 @@ public class UKCService implements IUKCService {
                         } else {
                             return true;
                         }*/
-                    }
-                    else {
-                        return true;
                     }
                 } catch (Exception e) {
                     e.getMessage();
@@ -553,7 +546,6 @@ public class UKCService implements IUKCService {
                 continue;
             }
             List<Synset> synsets = word.getSynsets();
-            senseList = new ArrayList<ISense>();
             for(int i=0;i<synsets.size();i++)
             {
                 Concept concept = synsets.get(i).getConcept();
