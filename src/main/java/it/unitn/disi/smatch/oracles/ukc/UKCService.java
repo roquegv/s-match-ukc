@@ -4,13 +4,9 @@ import com.cybozu.labs.langdetect.Detector;
 import com.cybozu.labs.langdetect.DetectorFactory;
 import com.cybozu.labs.langdetect.LangDetectException;
 import it.unitn.disi.smatch.data.ling.ISense;
-import it.unitn.disi.smatch.data.mappings.IMapping;
 import it.unitn.disi.smatch.data.mappings.IMappingElement;
 import it.unitn.disi.smatch.data.trees.IContext;
 import it.unitn.disi.smatch.data.trees.INode;
-import it.unitn.disi.smatch.oracles.LinguisticOracleException;
-import it.unitn.disi.smatch.oracles.SenseMatcherException;
-import it.unitn.disi.sweb.core.common.utils.ContextLoader;
 import it.unitn.disi.sweb.core.kb.IConceptService;
 import it.unitn.disi.sweb.core.kb.IKnowledgeBaseService;
 import it.unitn.disi.sweb.core.kb.IVocabularyService;
@@ -19,28 +15,24 @@ import it.unitn.disi.sweb.core.kb.model.concepts.Concept;
 import it.unitn.disi.sweb.core.kb.model.concepts.ConceptRelation;
 import it.unitn.disi.sweb.core.kb.model.concepts.ConceptRelationType;
 import it.unitn.disi.sweb.core.kb.model.vocabularies.*;
-import it.unitn.disi.sweb.core.nlp.INLPParameters;
 import it.unitn.disi.sweb.core.nlp.components.lemmatizers.ILemmatizer;
-import it.unitn.disi.sweb.core.nlp.model.NLText;
 import it.unitn.disi.sweb.core.nlp.parameters.NLPParameters;
-import org.hibernate.mapping.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.management.relation.RelationType;
-import javax.swing.text.html.parser.Parser;
-import java.util.*;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.Locale;
 
 /**
  * Created by Ahmed on 6/25/14.
  */
-//@Transactional
+@Transactional(readOnly=true)
 @Component
 public class UKCService implements IUKCService {
 
@@ -97,8 +89,8 @@ public class UKCService implements IUKCService {
     }
 
     @Override
-    public ArrayList<String> getMultiwords(String language) {
-        ArrayList<String> result = new ArrayList<String>();
+    public List<String> getMultiwords(String language) {
+        List<String> result = new ArrayList<String>();
         KnowledgeBase kb = knowledgeBaseService.readKnowledgeBase("uk");
         Vocabulary voc = vocabularyservice.readVocabulary(kb,language);
         List<Word> multiwords =  vocabularyservice.readMultiWords(voc);
@@ -335,38 +327,12 @@ public class UKCService implements IUKCService {
             //use distance or path to check for indirect connections
             //get path and check part of
 
-//            if(conceptservice.isRelationExists(conceptservice.readConcept(sourceSyn.getConceptID()),
-//                    conceptservice.readConcept(targetSyn.getConceptID()), ConceptRelationType.IS_A))
-//            {
-//            List<Concept> path =
-//                    conceptservice.computePath(conceptservice.readConcept(sourceSyn.getConceptID()), conceptservice.readConcept(targetSyn.getConceptID()));
-//            for(int i=0;i<path.size();i++)
-//            {
-//                if(!conceptservice.isRelationExists(conceptservice.readConcept(sourceSyn.getConceptID()),
-//                                                    conceptservice.readConcept(path.get(i).getId()),
-//                                                    ConceptRelationType.MEMBER_OF))
-//                {
-//                    if(!conceptservice.isRelationExists(conceptservice.readConcept(sourceSyn.getConceptID()),conceptservice.readConcept(path.get(i).getId()),ConceptRelationType.PART_OF))
-//                    {
-//                        if(!conceptservice.isRelationExists(conceptservice.readConcept(sourceSyn.getConceptID()),conceptservice.readConcept(path.get(i).getId()),ConceptRelationType.SUBSTANCE_OF))
-//                        {
-//                             return false;
-//                        }
-//                        else
-//                        {
-//                            return  true;
-//                        }
-//                    }
-//                }
-//            }
-//            }
             if ((PartOfSpeech.NOUN == sourceSyn.getPOS() && PartOfSpeech.NOUN == targetSyn.getPOS()) || (PartOfSpeech.VERB == sourceSyn.getPOS() && PartOfSpeech.VERB == targetSyn.getPOS())) {
                 if (source.equals(target)) {
                     return false;
                 }
                 try {
                     // find all more general relationships from UKC
-                    //RelationshipList list = RelationshipFinder.findRelationships(sourceSyn.getSynset(), targetSyn.getSynset(), PointerType.HYPERNYM);
 //                    if(!(conceptservice.isPathExists(conceptservice.readConcept(sourceSyn.getConceptID()),
 //                            conceptservice.readConcept(targetSyn.getConceptID()))))
                     Concept sourceConcept = conceptservice.readConcept(sourceSyn.getConceptID());
@@ -404,10 +370,8 @@ public class UKCService implements IUKCService {
     }
 
     private boolean traverseTree(List<Concept> targetAncestors, UKCSense sourceSyn/*, relationType relation*/) {
-       // List<Concept> targetChildren = new ArrayList<Concept>();
+        // List<Concept> targetChildren = new ArrayList<Concept>();
         Concept sourceConcept = conceptservice.readConcept(sourceSyn.getConceptID());
-
-
         for(Concept targetAncestor : targetAncestors)
         {
 /*            if(conceptservice.isRelationExists(sourceConcept,
@@ -420,11 +384,6 @@ public class UKCService implements IUKCService {
                 return true;
             }
         }
-
-
-
-
-
 
     /*    switch (relation) {
             case MemberOf:
@@ -605,7 +564,4 @@ public class UKCService implements IUKCService {
 
         return result;
     }
-
-
-
 }
