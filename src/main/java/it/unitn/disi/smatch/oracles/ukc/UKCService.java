@@ -54,7 +54,7 @@ public class UKCService implements IUKCService {
     @Autowired
     @Qualifier("NLPParameters")
     private NLPParameters parameters;
-
+    
     public UKCService()
     {
         //ContextLoader cl = new ContextLoader("classpath:/META-INF/smatch-context.xml");
@@ -149,34 +149,35 @@ public class UKCService implements IUKCService {
 
     @Override
     public boolean isSourceSynonymTarget(ISense source, ISense target) {
-        if ((source instanceof UKCSense) && (target instanceof UKCSense)) {
-         UKCSense sourceSyn = (UKCSense) source;
-         UKCSense targetSyn = (UKCSense) target;
-         Synset s = vocabularyservice.readSynset(sourceSyn.getSynsetID());
-         Synset t = vocabularyservice.readSynset(targetSyn.getSynsetID());
-         if(sourceSyn.getlanguage().equals(targetSyn.getlanguage()))
-          {
-              if (source.equals(target)) {
-                  return true;
-              }
-              if(vocabularyservice.isRelationExists(vocabularyservice.readSynset(sourceSyn.getSynsetID()),vocabularyservice.readSynset(targetSyn.getSynsetID()),SynsetRelationType.SIMILAR_TO))
-              {
-                  return !((PartOfSpeech.ADJECTIVE == sourceSyn.getPOS()) || (PartOfSpeech.ADJECTIVE == targetSyn.getPOS()));
-              }
-          }
-          else {
-             if(sourceSyn.getConceptID() == targetSyn.getConceptID())
-             {
+        if (!(source instanceof UKCSense) || !(target instanceof UKCSense)) {
+            return false;
+        }
+        UKCSense sourceSyn = (UKCSense) source;
+        UKCSense targetSyn = (UKCSense) target;
+        Synset s = vocabularyservice.readSynset(sourceSyn.getSynsetID());
+        Synset t = vocabularyservice.readSynset(targetSyn.getSynsetID());
+        if(sourceSyn.getlanguage().equals(targetSyn.getlanguage()))
+        {
+            if (source.equals(target)) {
                 return true;
-             }
-             if (source.equals(target)) {
-                 return true;
-             }
-             else
-             {
-                 return false;
-             }
-          }
+            }
+            if(vocabularyservice.isRelationExists(vocabularyservice.readSynset(sourceSyn.getSynsetID()),vocabularyservice.readSynset(targetSyn.getSynsetID()),SynsetRelationType.SIMILAR_TO))
+            {
+                return !((PartOfSpeech.ADJECTIVE == sourceSyn.getPOS()) || (PartOfSpeech.ADJECTIVE == targetSyn.getPOS()));
+            }
+        }
+        else {
+            if(sourceSyn.getConceptID() == targetSyn.getConceptID())
+            {
+               return true;
+            }
+            if (source.equals(target)) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         return false;
     }
@@ -320,50 +321,47 @@ public class UKCService implements IUKCService {
     //public enum relationType {MemberOf, PartOf, SubstanceOf}
     @Override
     public boolean isSourceMoreGeneralThanTarget(ISense source, ISense target) {
-        if ((source instanceof UKCSense) && (target instanceof UKCSense)) {
-            UKCSense sourceSyn = (UKCSense) source;
-            UKCSense targetSyn = (UKCSense) target;
+        if (!(source instanceof UKCSense) || !(target instanceof UKCSense)) {
+            return false;
+        }
+        UKCSense sourceSyn = (UKCSense) source;
+        UKCSense targetSyn = (UKCSense) target;
 
-            //use distance or path to check for indirect connections
-            //get path and check part of
+        //use distance or path to check for indirect connections
+        //get path and check part of
 
-            if ((PartOfSpeech.NOUN == sourceSyn.getPOS() && PartOfSpeech.NOUN == targetSyn.getPOS()) || (PartOfSpeech.VERB == sourceSyn.getPOS() && PartOfSpeech.VERB == targetSyn.getPOS())) {
-                if (source.equals(target)) {
-                    return false;
-                }
-                try {
-                    // find all more general relationships from UKC
+        if ((PartOfSpeech.NOUN == sourceSyn.getPOS() && PartOfSpeech.NOUN == targetSyn.getPOS()) || (PartOfSpeech.VERB == sourceSyn.getPOS() && PartOfSpeech.VERB == targetSyn.getPOS())) {
+            if (source.equals(target)) {
+                return false;
+            }
+            // find all more general relationships from UKC
 //                    if(!(conceptservice.isPathExists(conceptservice.readConcept(sourceSyn.getConceptID()),
 //                            conceptservice.readConcept(targetSyn.getConceptID()))))
-                    Concept sourceConcept = conceptservice.readConcept(sourceSyn.getConceptID());
-                    Concept targetConcept = conceptservice.readConcept(targetSyn.getConceptID());
+            Concept sourceConcept = conceptservice.readConcept(sourceSyn.getConceptID());
+            Concept targetConcept = conceptservice.readConcept(targetSyn.getConceptID());
 //                    if(!(conceptservice.isPathExists(sourceConcept, targetConcept)))
-                    List<Concept> ancestorsOfTarget = conceptservice.readAncestors(targetConcept);
-                    if (ancestorsOfTarget.contains(sourceConcept)) {
-                        return true;
-                    } else {
-                        //PointerTargetTree ptt = PointerUtils.getInheritedMemberHolonyms(targetSyn.getSynset());
-                        //PointerTargetNodeList ptnl = PointerUtils.getMemberHolonyms(targetSyn.getSynset());
-                        traverseTree(ancestorsOfTarget, sourceSyn);
-                    /*    if (!traverseTree(targetAncestors, sourceSyn, relationType.MemberOf)) {
-                            //ptt = PointerUtils.getInheritedPartHolonyms(targetSyn.getSynset());
-                            //ptnl = PointerUtils.getPartHolonyms(targetSyn.getSynset());
-                            if (!traverseTree(targetAncestors, sourceSyn, relationType.PartOf)) {
-                                //ptt = PointerUtils.getInheritedSubstanceHolonyms(targetSyn.getSynset());
-                                //ptnl = PointerUtils.getSubstanceHolonyms(targetSyn.getSynset());
-                                if (traverseTree(targetAncestors, sourceSyn, relationType.SubstanceOf)) {
-                                    return true;
-                                }
-                            } else {
-                                return true;
-                            }
-                        } else {
+            List<Concept> ancestorsOfTarget = conceptservice.readAncestors(targetConcept);
+            if (ancestorsOfTarget.contains(sourceConcept)) {
+                return true;
+            } else {
+                //PointerTargetTree ptt = PointerUtils.getInheritedMemberHolonyms(targetSyn.getSynset());
+                //PointerTargetNodeList ptnl = PointerUtils.getMemberHolonyms(targetSyn.getSynset());
+                traverseTree(ancestorsOfTarget, sourceSyn);
+            /*    if (!traverseTree(targetAncestors, sourceSyn, relationType.MemberOf)) {
+                    //ptt = PointerUtils.getInheritedPartHolonyms(targetSyn.getSynset());
+                    //ptnl = PointerUtils.getPartHolonyms(targetSyn.getSynset());
+                    if (!traverseTree(targetAncestors, sourceSyn, relationType.PartOf)) {
+                        //ptt = PointerUtils.getInheritedSubstanceHolonyms(targetSyn.getSynset());
+                        //ptnl = PointerUtils.getSubstanceHolonyms(targetSyn.getSynset());
+                        if (traverseTree(targetAncestors, sourceSyn, relationType.SubstanceOf)) {
                             return true;
-                        }*/
+                        }
+                    } else {
+                        return true;
                     }
-                } catch (Exception e) {
-                    e.getMessage();
-                }
+                } else {
+                    return true;
+                }*/
             }
         }
         return false;
