@@ -1,42 +1,13 @@
 package it.unitn.disi.smatch.oracles.ukc;
 
-import it.unitn.disi.common.DISIException;
-import it.unitn.disi.common.utils.MiscUtils;
-import it.unitn.disi.smatch.SMatchException;
 import it.unitn.disi.smatch.data.ling.ISense;
-import it.unitn.disi.smatch.data.mappings.IMappingElement;
 import it.unitn.disi.smatch.data.trees.IContext;
 import it.unitn.disi.smatch.oracles.ILinguisticOracle;
 import it.unitn.disi.smatch.oracles.ISenseMatcher;
 import it.unitn.disi.smatch.oracles.LinguisticOracleException;
 import it.unitn.disi.smatch.oracles.SenseMatcherException;
 import it.unitn.disi.sweb.core.common.utils.ContextLoader;
-import it.unitn.disi.sweb.core.kb.IConceptService;
-import it.unitn.disi.sweb.core.kb.IKnowledgeBaseService;
-import it.unitn.disi.sweb.core.kb.IVocabularyService;
-import it.unitn.disi.sweb.core.kb.model.KnowledgeBase;
-import it.unitn.disi.sweb.core.kb.model.vocabularies.*;
-import it.unitn.disi.sweb.core.kb.model.vocabularies.Synset;
-import it.unitn.disi.sweb.core.kb.model.vocabularies.Word;
-import net.sf.extjwnl.JWNLException;
-import net.sf.extjwnl.data.*;
-import net.sf.extjwnl.data.list.PointerTargetNode;
-import net.sf.extjwnl.data.list.PointerTargetNodeList;
-import net.sf.extjwnl.data.list.PointerTargetTree;
-import net.sf.extjwnl.data.relationship.AsymmetricRelationship;
-import net.sf.extjwnl.data.relationship.RelationshipFinder;
-import net.sf.extjwnl.data.relationship.RelationshipList;
-import net.sf.extjwnl.dictionary.Dictionary;
-import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Created by Ahmed on 6/3/14.

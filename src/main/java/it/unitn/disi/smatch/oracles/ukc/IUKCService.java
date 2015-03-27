@@ -17,7 +17,7 @@ public interface IUKCService {
     List<String> getBaseForms(String derivation,String language);
     boolean isEqual(String str1, String str2,String language);
     ISense createSense(String id, String language);
-    ArrayList<String> getMultiwords(String language);
+    List<String> getMultiwords(String language);
     char getRelation(List<ISense> sourceSenses, List<ISense> targetSenses);
     boolean isSourceMoreGeneralThanTarget(ISense source, ISense target);
     boolean isSourceLessGeneralThanTarget(ISense source, ISense target);
