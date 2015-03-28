@@ -114,12 +114,20 @@ public class UKC implements ILinguisticOracle,ISenseMatcher {
 
     @Override
     public boolean isSourceMoreGeneralThanTarget(ISense source, ISense target) throws SenseMatcherException {
-        return ukcService.isSourceMoreGeneralThanTarget(source,target);
+        try {
+            return ukcService.isSourceMoreGeneralThanTarget(source,target);
+        } catch(Exception e) {
+            throw new SenseMatcherException(e.getClass().getSimpleName() + ": " + e.getMessage(), e);
+        }
     }
 
     @Override
     public boolean isSourceLessGeneralThanTarget(ISense source, ISense target) throws SenseMatcherException {
-        return ukcService.isSourceLessGeneralThanTarget(source, target);
+        try {
+            return ukcService.isSourceLessGeneralThanTarget(source, target);
+        } catch(Exception e) {
+            throw new SenseMatcherException(e.getClass().getSimpleName() + ": " + e.getMessage(), e);
+        }
     }
 
     @Override
