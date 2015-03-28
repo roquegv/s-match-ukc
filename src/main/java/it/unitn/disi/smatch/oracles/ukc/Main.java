@@ -1,7 +1,5 @@
 package it.unitn.disi.smatch.oracles.ukc;
 
-
-import it.unitn.disi.smatch.data.ling.IAtomicConceptOfLabel;
 import it.unitn.disi.smatch.data.ling.ISense;
 import it.unitn.disi.smatch.oracles.ILinguisticOracle;
 import it.unitn.disi.smatch.oracles.LinguisticOracleException;
