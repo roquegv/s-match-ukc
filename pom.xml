@@ -66,7 +66,29 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
+        
+        <!-- My dependencies -->
+        <dependency>
+			<groupId>com.cybozu.labs</groupId>
+			<artifactId>langdetect</artifactId>
+			<version>1.1-20120112</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.1-901.jdbc4</version>
+		</dependency>
+		
+		<dependency>
+            <groupId>it.unitn.disi.sweb</groupId>
+            <artifactId>scroll-core</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
 
+
+<!-- ROQUE
+		
         <dependency>
             <groupId>it.unitn.disi.sweb</groupId>
             <artifactId>sweb-nlp</artifactId>
@@ -78,6 +100,7 @@
             <artifactId>sweb-kb</artifactId>
             <version>2.5.0-RELEASE</version>
         </dependency>
+-->
     </dependencies>
 
     <build>
