@@ -3,8 +3,10 @@ package it.unitn.disi.smatch.oracles.ukc;
 import it.unitn.disi.smatch.data.ling.ISense;
 import it.unitn.disi.smatch.data.ling.Sense;
 import it.unitn.disi.smatch.oracles.LinguisticOracleException;
-import it.unitn.disi.sweb.core.kb.model.vocabularies.PartOfSpeech;
+//import it.unitn.disi.sweb.core.kb.model.vocabularies.PartOfSpeech;
 
+
+import it.unitn.disi.smatch.oracles.dbukc.DBUKCService;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -29,7 +31,7 @@ public class UKCSense extends Sense {
         this.component = component;
     }
 
-    public String getGloss(UKCService component, String language) {
+    public String getGloss(DBUKCService component, String language) {
 
         return component.getGloss(conceptid, language);
         //return concept.getSynset(vocabulary).getGloss();

@@ -15,18 +15,19 @@
 
 <!-- ROQUE: some changes
     <import resource="classpath:/META-INF/sweb-default-context.xml"></import>
-
-    <context:component-scan base-package="it.unitn.disi.smatch.oracles.ukc" />
 -->
+    <context:component-scan base-package="it.unitn.disi.smatch.oracles.ukc" />
+
 	<import resource="classpath:/META-INF/scroll-default-context.xml"></import>
 	
-	<context:component-scan base-package="it.unitn.disi.smatch.oracles.dbukc" />
-	<bean id="dbukcLemma" class="it.unitn.disi.smatch.oracles.dbukc.DBUKC_scrollLemma">
+	<!-- context:component-scan base-package="it.unitn.disi.smatch.oracles.dbukc" /> -->
+<!-- 	<bean id="dbukcLemma" class="it.unitn.disi.smatch.oracles.dbukc.DBUKC_scrollLemma"> -->
 	<!-- 
 		<property name="lemmatizer" value="it.unitn.disi.sweb.core.nlp.components.lemmatizers.Lemmatizer">
 		</property>
 		<property name="parameters" value="it.unitn.disi.sweb.core.nlp.parameters.NLPParameters">
 		</property>
 		 -->
-   </bean>
+<!--    </bean> -->
+   <bean id="ukcService" class="it.unitn.disi.smatch.oracles.dbukc.DBUKCService"></bean>
 </beans>

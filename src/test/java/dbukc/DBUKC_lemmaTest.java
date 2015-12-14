@@ -13,7 +13,7 @@ import it.unitn.disi.smatch.data.trees.Context;
 import it.unitn.disi.smatch.data.trees.INode;
 import it.unitn.disi.smatch.oracles.LinguisticOracleException;
 import it.unitn.disi.smatch.oracles.SenseMatcherException;
-import it.unitn.disi.smatch.oracles.dbukc.DBUKC_scrollLemma;
+import it.unitn.disi.smatch.oracles.dbukc.DBUKC;
 
 import org.hamcrest.core.IsEqual;
 import org.junit.Before;
@@ -23,12 +23,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class DBUKC_lemmaTest {
 
-	DBUKC_scrollLemma ukc;
+	DBUKC ukc;
 	
 	@Before
 	public void init(){
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:**/smatch-context.xml");
-		ukc = (DBUKC_scrollLemma) applicationContext.getBean("dbukcLemma");
+		ukc = (DBUKC) applicationContext.getBean("dbukcLemma");
 	}
 	@Test
 	public void testIsEqual() throws LinguisticOracleException {

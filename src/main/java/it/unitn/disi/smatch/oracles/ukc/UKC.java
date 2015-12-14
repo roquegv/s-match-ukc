@@ -6,7 +6,11 @@ import it.unitn.disi.smatch.oracles.ILinguisticOracle;
 import it.unitn.disi.smatch.oracles.ISenseMatcher;
 import it.unitn.disi.smatch.oracles.LinguisticOracleException;
 import it.unitn.disi.smatch.oracles.SenseMatcherException;
-import it.unitn.disi.sweb.core.common.utils.ContextLoader;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+//import it.unitn.disi.sweb.core.common.utils.ContextLoader;
+
 import java.util.*;
 
 /**
@@ -16,7 +20,7 @@ import java.util.*;
 public class UKC implements ILinguisticOracle,ISenseMatcher {
 
     private static IUKCService ukcService;
-    private ContextLoader cl;
+//    private ContextLoader cl;
 
     HashMap<String, HashMap<String, ArrayList<ArrayList<String>>>> multiwords = new HashMap<String, HashMap<String, ArrayList<ArrayList<String>>>>();
 
@@ -89,8 +93,10 @@ public class UKC implements ILinguisticOracle,ISenseMatcher {
     }
 
     public void loadContextLoader() {
-        cl = new ContextLoader("classpath:/META-INF/smatch-context.xml");
-        ukcService = cl.getApplicationContext().getBean(IUKCService.class);
+//        cl = new ContextLoader("classpath:/META-INF/smatch-context.xml");
+    	ApplicationContext applicationContext = 
+    			new ClassPathXmlApplicationContext("classpath:/META-INF/smatch-context.xml");
+        ukcService = applicationContext.getBean(IUKCService.class);
     }
 
     @Override

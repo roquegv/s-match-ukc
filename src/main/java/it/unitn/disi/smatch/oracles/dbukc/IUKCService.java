@@ -1,4 +1,4 @@
-package it.unitn.disi.smatch.oracles.ukc;
+package it.unitn.disi.smatch.oracles.dbukc;
 
 import it.unitn.disi.smatch.data.ling.ISense;
 import it.unitn.disi.smatch.data.trees.IContext;
