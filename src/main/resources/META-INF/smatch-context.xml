@@ -21,7 +21,7 @@
 	<import resource="classpath:/META-INF/scroll-default-context.xml"></import>
 	
 	<context:component-scan base-package="it.unitn.disi.smatch.oracles.dbukc" />
-	<bean id="dbukcLemma" class="it.unitn.disi.smatch.oracles.dbukc.DBUKC_scrollLemma">
+	<bean id="ukcService" class="it.unitn.disi.smatch.oracles.dbukc.DBUKCService">
 	<!-- 
 		<property name="lemmatizer" value="it.unitn.disi.sweb.core.nlp.components.lemmatizers.Lemmatizer">
 		</property>

@@ -7,9 +7,12 @@ import it.unitn.disi.smatch.oracles.ISenseMatcher;
 import it.unitn.disi.smatch.oracles.LinguisticOracleException;
 import it.unitn.disi.smatch.oracles.SenseMatcherException;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 //import it.unitn.disi.sweb.core.common.utils.ContextLoader;
+
 
 import java.util.*;
 
@@ -19,6 +22,8 @@ import java.util.*;
 
 public class DBUKC implements ILinguisticOracle,ISenseMatcher {
 
+	@Autowired
+    @Qualifier("DBUKCService")
     private static IUKCService ukcService;
 //    private ContextLoader cl;
 
@@ -28,6 +33,7 @@ public class DBUKC implements ILinguisticOracle,ISenseMatcher {
     {
         //cl = new ContextLoader("classpath:/META-INF/smatch-context.xml");
         //ukcService = cl.getApplicationContext().getBean(IUKCService.class);
+    	loadContextLoader();
     }
 
     @Override

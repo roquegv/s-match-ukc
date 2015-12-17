@@ -25,6 +25,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import javax.annotation.PostConstruct;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -46,6 +48,8 @@ public class DBUKCService implements IUKCService{
     @Qualifier("LanguageDetector")
     private ILanguageDetector<NLPParameters> languageDetector;
     
+    private String lexicalResource;
+    
 	public DBUKCService() {
 		try {
 //	        	Class.forName("org.postgresql.Driver");
@@ -54,6 +58,11 @@ public class DBUKCService implements IUKCService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@PostConstruct
+	private void loadLexicalResource(){
+		lexicalResource = parameters.getLexicalResource();
 	}
 	@Override
 	public String getGloss(long conceptID, String language) {
@@ -129,9 +138,8 @@ public class DBUKCService implements IUKCService{
         }catch (Exception e){
         	derivation = derivation.toLowerCase();
         }
-		
 		List<String> lemmas = new ArrayList<String>();
-		Iterator<Set<String>> it = lemmatizer.lemmatize(derivation, language).values().iterator();
+		Iterator<Set<String>> it = lemmatizer.lemmatize(lexicalResource,derivation, language).values().iterator();
 		while(it.hasNext())
 			lemmas.addAll(it.next());
 		return lemmas;
@@ -151,17 +159,17 @@ public class DBUKCService implements IUKCService{
         ArrayList<String> lemmas2 = new ArrayList<>() ;
         Iterator<Set<String>> it;
         
-		if(lemmatizer.isLemmaExists(str1, language))
+		if(lemmatizer.isLemmaExists(lexicalResource, str1, language))
 			lemmas1.add(str1);
 		else{
-			it = lemmatizer.lemmatize(str1, language).values().iterator();
+			it = lemmatizer.lemmatize(lexicalResource, str1, language).values().iterator();
 			while(it.hasNext())
 				lemmas1.addAll(it.next());
 		}
-		if(lemmatizer.isLemmaExists(str2, language))
+		if(lemmatizer.isLemmaExists(lexicalResource, str2, language))
 			lemmas2.add(str2);
 		else{
-			it = lemmatizer.lemmatize(str2, language).values().iterator();
+			it = lemmatizer.lemmatize(lexicalResource, str2, language).values().iterator();
 			while(it.hasNext())
 				lemmas2.addAll(it.next());
 		}
@@ -433,7 +441,7 @@ public class DBUKCService implements IUKCService{
 		List<String> lemmas = new ArrayList<String>();
 		try {
 			stmt = c.createStatement();
-			rs = stmt.executeQuery("select lemma from vocabulary_senses vsen, vocabulary_words vw"+
+			rs = stmt.executeQuery("select lemma from vocabulary_senses vsen, vocabulary_words vw "+
 								"where synset_id = (select synset_id from vocabulary_senses where id = "+synsetID+") "
 								+ "and vw.id = word_id;");
 			while (rs.next()){

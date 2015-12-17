@@ -28,7 +28,7 @@ public class DBUKC_lemmaTest {
 	@Before
 	public void init(){
 		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:**/smatch-context.xml");
-		ukc = (DBUKC) applicationContext.getBean("dbukcLemma");
+		ukc = (DBUKC) applicationContext.getBean("ukcService");
 	}
 	@Test
 	public void testIsEqual() throws LinguisticOracleException {
